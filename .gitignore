@@ -1,0 +1,8 @@
+Eigen/
+\.qmake.stash
+*Makefile
+*.o
+
+Lesson5_6/Lesson5_6
+
+Lesson5_12/Lesson5_12
