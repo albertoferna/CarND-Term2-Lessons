@@ -4,4 +4,6 @@ SUBDIRS += \
     Lesson5_6 \
     Lesson5_12 \
     Lesson5_18 \
-    Lesson5_22
+    Lesson5_22 \
+    Lesson7_14 \
+    Lesson7_17
