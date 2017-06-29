@@ -66,9 +66,25 @@ void UKF::AugmentedSigmaPoints(MatrixXd* Xsig_out) {
  ******************************************************************************/
 
   //create augmented mean state
+  x_aug.head(5) = x;
+  x_aug(5) = 0.0;
+  x_aug(6) = 0.0;
   //create augmented covariance matrix
+  MatrixXd Q(2,2);
+  Q << std_a*std_a , 0.0,
+       0.0, std_yawdd*std_a;
+  P_aug.setZero();
+  P_aug.topLeftCorner(n_x, n_x) = P;
+  P_aug.bottomRightCorner(2, 2) = Q;
   //create square root matrix
+  MatrixXd A = P_aug.llt().matrixL();
   //create augmented sigma points
+  Xsig_aug.col(0) = x_aug;
+  for (int i = 0; i < n_aug; i++)
+  {
+    Xsig_aug.col(i+1)     = x_aug + sqrt(lambda+n_aug) * A.col(i);
+    Xsig_aug.col(i+1+n_aug) = x_aug - sqrt(lambda+n_aug) * A.col(i);
+  }
 
 /*******************************************************************************
  * Student part end
